@@ -1,0 +1,447 @@
+@extends('layouts.admin')
+@section('content')
+<!-- modifier plat  -->
+<div class="container"><br><br>
+  <div class="modasl-body row">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header"> Ajouter un nouveaux menu </div>
+          <div class="card-body"><br>
+            <form action="{{ url('update_Plat') }}" enctype="multipart/form-data" method="post">
+              @csrf
+              <div class="row">
+                @foreach ( $restaurants as $restaurant )
+                @foreach ( $menus as $menu )
+                @foreach($restaurant_menus as $restaurant_menu)
+                @if( Auth::user()->id == $restaurant->Id_AgentR && $restaurant_menu->Id_Menu ==
+                $menu->Id
+                && $restaurant_menu->Id_Restaurant == $restaurant->Id_Restau)
+                <input type="hidden" name="Id_contenue" value="{{$contenue_menus->Id}}">
+                <input type="hidden" name="Id_restau" value="{{$restaurant->Id_Restau}}">
+                @endif
+                @endforeach
+                @endforeach
+                @endforeach
+                <div class=" col-6">
+                  <label for="np" class="col-auto col-form-label col-form-label-sm">Nom du plat :
+                    <b style="color : red ;">*</b> </label>
+                  <input name="np" id="np" value="{{$contenue_menus->Nom_Ligns}}" class="form-control "
+                    placeholder="Nom du plat" require>
+                </div>
+                <div class=" col-6">
+                  <label for="dp" class="col-auto col-form-label col-form-label-sm">Decription du plat
+                    : <b style="color : red ;">*</b>
+                  </label>
+                  <input name="dp" value="{{$contenue_menus->Descrip_Plat}}" type="textarea" id="dp"
+                    class="form-control " placeholder="Decription du plat" require>
+                </div>
+                <div class=" col-6">
+                  <label for="cy" class="col-auto col-form-label col-form-label-sm">Type du plat :<b
+                      style="color : red ;">*</b></label>
+                  <select class="form-control" name="tp" id="cy" require>
+                    <@foreach ( $type_menus as $type_menu ) <option value="{{$type_menu->Id}}">
+                      {{$type_menu->Type_Menu}}</option>
+                      @endforeach
+                  </select>
+                </div>
+                <div class=" col-6">
+                  <label for="pp" class="col-auto col-form-label form-control-label col-form-label-sm">Prix du
+                    plat : <b style="color : red ;">*</b></label>
+                  <input name="pp" type="numeber" id="pp" value="{{$contenue_menus->Prix_Plat}}" class="form-control"
+                    placeholder="Prix du plat" require>
+                </div>
+                <div class=" col-12">
+                  <label for="pp" class="col-auto col-form-label form-control-label col-form-label-sm">Photo du
+                    plat : <b style="color : red ;">*</b></label>
+                  <input name="photo" type="file" id="pp" class="form-control" placeholder="Prix du plat" require>
+                </div>
+                <div class=" col-6"><br>
+                  <input type="submit" class="form-control btn btn-primary" value="Ajouter">
+                </div>
+                <div class=" col-lg-6"><br>
+                  <input type="reset" class="form-control btn btn-dark" data-dismiss="modal" value="Annuler">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@endsection
+
+
+
+  <!-- Section-->
+   
+    <!-- Section -->
+ <!-- <section class="py-5">
+ 
+ <div class="container px-4 px-lg-5 mt-5">
+     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    
+        
+
+     @foreach($restaurant_menus as $restaurant_menu )
+     @foreach($restaurants as $restaurant )
+          @foreach($menu_type_menus as $menu_type_menu )
+          @foreach($plats as $plat)
+          @foreach($phot_plats as $phot_plat)
+
+          @if($restaurant_menu->Id_Restaurant == $restaurant_menu->restaurants->Id_Restau &&
+          $restaurant_menu->menus->Id == $restaurant_menu->Id_Menu &&
+          $restaurant_menu->menus->Id == $menu_type_menu->Id_Menu &&
+          $menu_type_menu->Id_Type_Menu == $menu_type_menu->typemenus->Id &&
+          $plat->Id_type_menu == $menu_type_menu->typemenus->Id
+         && $plat->Id == $phot_plat->Id_Plat &&
+          $restaurant_menu->restaurants->publier == 'oui' )
+
+         dfdfdfdfdf
+         <div class="">
+         <div class="carsd  "> -->
+                 <!-- <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
+                 </div> -->
+                 <!-- Product image-->
+<!--                 
+                 <a href="{{ url('/visiterestau/'.$restaurant->Id_Restau) }}" >
+                
+                 <img class="card-img-top" width="256px" height="199px" 
+                 class="cardd-imcg-top" src="{{asset('/storage/img/plats/'.$phot_plat->photo)}}" alt="..." /> -->
+                 <!-- Product details-->
+                 <!-- <div class="carsd-body p-4">
+                     <div class="text-center"> -->
+                         <!-- Product name-->
+                         <!-- <h5 class="fw-bolder">{{$phot_plat->plats->Nom_Plat}}</h5> -->
+                         <!-- Product price-->
+                         <!-- {{$phot_plat->plats->Prix_Plat}}<br>
+                         Restaurants 
+                     </div>
+                      
+
+                 </div>
+         </a>
+                 Product actions -->
+                 <!-- <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">
+                          
+                     {{$phot_plat->plats->Descrip_Plat}}</a></div>
+                 </div>
+
+             </div>
+         </div>
+
+          @endif
+          @endforeach
+          @endforeach
+          @endforeach
+          @endforeach
+          @endforeach
+         
+   
+        @foreach($phot_plats as $phot_plat)
+         @foreach($plats as $plat)
+       
+         @if(
+          $plat->Id == $phot_plat->Id_Plat)
+         
+         <div class="">
+         <div class="carsd  "> -->
+                 <!-- <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
+                 </div> -->
+                 <!-- Product image-->
+                 <!-- @foreach($restaurants as $restaurant )
+                 <a href="{{ url('/visiterestau/'.$restaurant->Id_Restau) }}" >
+                 @endforeach
+                 <img class="card-img-top" width="256px" height="199px" 
+                 class="cardd-imcg-top" src="{{asset('/storage/img/plats/'.$phot_plat->photo)}}" alt="..." /> -->
+                 <!-- Product details-->
+                 <!-- <div class="carsd-body p-4"> -->
+                     <!-- <div class="text-center"> -->
+                         <!-- Product name-->
+                         <!-- <h5 class="fw-bolder">{{$phot_plat->plats->Nom_Plat}}</h5> -->
+                         <!-- Product price-->
+                         <!-- {{$phot_plat->plats->Prix_Plat}}<br>
+                         Restaurants  -->
+                     <!-- </div>
+                      
+
+                 </div>
+         </a> -->
+                 <!-- Product actions-->
+                 <!-- <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">
+                          
+                     {{$phot_plat->plats->Descrip_Plat}}</a></div>
+                 </div>
+
+             </div>
+         </div>
+
+         
+
+         @endif
+         @endforeach
+         @endforeach
+       
+        
+        
+     </div>
+ </div>
+ 
+</section> -->
+
+
+
+
+
+$type_menus = type_menu::all() ;
+       
+$plats =  plat::all() ;
+$agentrs = agentr::all() ;
+$menus = menu::all() ;
+$restaurants_menu = restaurant_menu::all() ;
+$restaurants = restaurant::all() ;
+
+$menu_type_menus =  menu_type_menu::all()  ;
+$plats = plat::all() ;
+
+$phot_plats = phot_plat::all();
+
+$correctedComparisons  ;
+
+foreach($restaurants_menu as $restaurant_menu){
+   
+   
+    // var_dump($restaurant_menu->restaurants->Id_Restau);
+    $wordlist = restaurant_menu::where('Id_Restaurant', '=',$restaurant_menu->restaurants->Id_Restau)->count();
+
+// $wordCount = $wordlist->count();
+// $wordCount++ ;
+//  var_dump( $wordCount) ;
+}
+
+$wordCount = restaurant_menu::count();
+
+
+// var_dump( $wordCount) ;
+
+$counts = $type_menus->groupBy('type')->map(function ($item) {
+    return collect($item)->count();
+});
+$uniques = array();
+
+// foreach ($countries as $c) {
+//     $uniques[$c->code] = $c; //Get unique country by code.
+// }
+// $restaut_total =  phot_plat::select()
+
+['Type_menu_Restau_Polulaires'=>$Type_menu_Restau_Polulaires ,'villes'=>$villes ,'restaurants_villes'=>$restaurants_villes,'Desserts_count'=>$Desserts_count,'menu_principal_count'=>$menu_principal_count,'Boissons_count'=>$Boissons_count,'Entrées_count'=>$Entrées_count,
+'Entrées'=>$Entrées ,'Boissons'=>$Boissons,'Desserts'=>$Desserts,'menu_principal' => $menu_principal ,
+'plats' => $plats, 'phot_plats' =>  $phot_plats ,'menu_type_menus'=>$menu_type_menus ,
+'type_menus'=>$type_menus ,'menus'=>$menus,'restaurant_menus'=> 
+$restaurants_menu,'restaurants'=>$restaurants,'agentrs'=>$agentrs,'plats'=>$plats ,'layout'=>'ProfilAgentResto']);
+
+
+
+
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Events\Message ; 
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+// Route::view('/', 'layouts.home');
+
+//Page d'acceuil 
+Route::get('/',"RestoController@indexResto")->name('home') ;
+
+// Agent restaurant 
+    // Formulaire de nouveaux restaurant 
+        Route::get('/newResto',"RestoController@newResto");
+    // Enregistrement  nouveaux restaurant      
+        Route::post('/register/agentr', [RegisterController::class,'storeAgent'])->name('welcome'); 
+    //Page d'acceuil agent restaurant    
+        Route::group(['middleware' => 'auth:agentr'], function () {
+            Route::view('/agentr', 'agentr');
+            Route::get('/agentr',"RestoController@ProfilAgentResto");
+            // Route::post('/store',"RestoController@storeAgent");
+            //  Enregistrement  nouveaux menu
+                Route::POST('/storemenu',"RestoController@storemenu");
+            //  Enregistrement  nouveaux plat    
+                Route::POST('/storeplat',"RestoController@storeplat");
+            // Supprimer un menu  
+                Route::POST('/deltemenu',"RestoController@DeleteMenu")->name('deletemenu');
+            //Supprimer plat 
+                Route::POST('/deleteplat',"RestoController@DeletePlat")->name('deleteplat');
+            //Formulaire de modification de  plat    
+                Route::get('/agentr/{id}',"RestoController@UpdatePlat")->name('update.plat');
+            //Enregistre les   modification de  plat    
+                Route::post('/update_Plat',"RestoController@store_plat_update")->name('store.plat.update');
+        });
+    //Confirmation par mail    
+        Route::get('/confirm/{Id_Agent}/{verifi_code}', [RegisterController::class,'confirm_coompte'])->name('confirm');
+//  Auth::routes();
+
+Auth::routes(['verify' => true]);
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/marker', function(){
+    return View::make('maps.map') ;
+}) ;
+
+
+Route::post('/marker', function(){
+    restaurant::create(Input::all()) ;
+    var_dump('restaurant add') ;
+}) ;
+
+
+Route::get('/marker', function(){
+    return View::make('maps.map') ;
+}) ;
+Route::group(['middleware' => ['auth']], function() {
+    
+    
+    
+    /**
+    * Verification Routes
+    */
+    // Route::get('/email/verify', 'VerificationController@show')->name('verification.notice');
+    // Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify')->middleware(['signed']);
+    // Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
+    
+    
+    
+});
+// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/verify','Auth\RegisterController@verifyUser')->name('verify.user');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/login/admin', [LoginController::class, 'showAdminLoginForm']);
+Route::get('/login/agentr', [LoginController::class,'showAgentLoginForm']);
+Route::get('/login/client', [LoginController::class,'showClientLoginForm']);
+
+Route::get('/register/admin', [RegisterController::class,'showAdminRegisterForm']);
+Route::get('/register/agentr', [RegisterController::class,'showAgentrRegisterForm']);
+Route::get('/register/client', [RegisterController::class,'showClientRegisterForm']);
+
+
+Route::post('/login/admin', [LoginController::class,'adminLogin']);
+Route::post('/login/agentr', [LoginController::class,'agentrLogin']);
+Route::post('/login/client', [LoginController::class,'clientLogin']);
+
+Route::post('/register/admin', [RegisterController::class,'createAdmin']);
+// Route::post('/register/agentr', [RegisterController::class,'storeAgent'])->name('welcome');
+Route::post('/register/client', [RegisterController::class,'createClient']);
+
+// Route::get('password/email', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.email');
+// Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+
+// // Password reset routes...
+// Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.request');
+// Route::post('password/reset', 'Auth\ResetPasswordController@postReset')->name('password.reset');
+
+
+
+
+Route::group(['middleware' => 'auth:client'], function () {
+    Route::view('/client', 'client'); 
+
+    Route::get('/client',"RestoController@ProfilClientResto");
+    
+//Cart Route 
+Route::GET('/panier',"CartController@index")->name('cart.index');
+Route::POST('/panier/ajouter',"CartController@store")->name('cart.store');
+Route::POST('/panier/{rowI}',"CartController@storequantity")->name('cart.storequantite');
+
+Route::patch('/panier/{rowId}',"CartController@update")->name('cart.update');
+
+// Route::patch('update-cart', 'ProductController@updateCart');
+Route::DELETE('/panier/{rowId}',"CartController@destroy")->name('cart.destroy');
+Route::get('/videPanier', function(){
+    Cart::destroy() ;
+    return back()->with('success' , 'tout les produits sont supprimer .') ;
+})->name('vide.panier');
+
+    
+//CheoutRoute
+Route::get('/paiment' ,"PaimentController@index")->name('chekout.index') ;
+Route::post('/paiment' ,"PaimentController@store")->name('chekout.store') ;
+
+Route::get('/merci' ,"PaimentController@thankyou")->name('checkout.thankyou') ;
+
+
+Route::get('/chat-ag-user',function(){
+    return view('chats.chat') ;
+    });
+    Route::post('/send-message',"ChatController@store")->name('store.chat');
+
+});
+
+Route::group(['middleware' => 'auth:admin'], function () {
+    
+    Route::view('/admin', 'admin');
+});
+
+Route::get('logout', [LoginController::class,'logout']);
+
+
+
+// Route::GET('/publierReso/{id}',"RestoController@publierReso");
+//modifier restau 
+
+//Change photo 
+Route::post('/changephoto' ,"RestoController@ChangePhoto")->name('change.photo') ;
+
+// Route::GET('/panier/add',"CartController@add");
+// Route::GET('/panier/index',"CartController@index");
+ 
+
+// Route::GET('/infoPanier',"RestoController@infoPanier");
+
+
+Route::GET('/visiterestau/{id}',"RestoController@findRestaurByClient")->name('visiterestau.index');
+//Detail produits 
+Route::get('/visiterestau/{id}/ProduitDetail/{rowId}',"RestoController@viewplatDetail")->name('view.plat') ;
+Route::GET('/visiterestauTotal/{id}',"RestoController@visiterestauTotal")->name('visiterestautotal.index');
+
+ 
+
+
+
+//Chat route 
+// Route::get('/chat',"ChatController@index")->name('index.chat') ;
+Route::resource('chat', ChatController::class) ;
+
+        
+Route::get('/serach', "RestoController@Search")->name('restaurant.cherche') ;
+
+
+
+// Route::get('/storePhot',"RestoController@ChangePhot")->name('Change.pho');
+
+ //Route::post('change-profile-picture',[RestoController::class,'updatePicture'])->name('adminPictureUpdate');
+ //Route::get('/change_profil_picture',"RestoController@ChangePhoto")->name('Change.photo');
+
+ //Route::POST('/agentr/{rowI}',"RestoController@ChangePhoto")->name('cart.storequantite');
+
+
+
+
